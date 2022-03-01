@@ -350,7 +350,7 @@ func (s *baseServer) handlePacketImpl(p *receivedPacket) bool /* is the buffer s
 	if !hdr.IsLongHeader {
 		panic(fmt.Sprintf("misrouted packet: %#v", hdr))
 	}
-	if hdr.Type == protocol.PacketTypeInitial && p.Size() < protocol.MinInitialPacketSize {
+	if hdr.Type == protocol.PacketTypeInitial && p.Size() < protocol.ByteCount(protocol.MinInitialPacketSize) {
 		s.logger.Debugf("Dropping a packet that is too small to be a valid Initial (%d bytes)", p.Size())
 		if s.config.Tracer != nil {
 			s.config.Tracer.DroppedPacket(p.remoteAddr, logging.PacketTypeInitial, p.Size(), logging.PacketDropUnexpectedPacket)
@@ -359,7 +359,7 @@ func (s *baseServer) handlePacketImpl(p *receivedPacket) bool /* is the buffer s
 	}
 	// send a Version Negotiation Packet if the client is speaking a different protocol version
 	if !protocol.IsSupportedVersion(s.config.Versions, hdr.Version) {
-		if p.Size() < protocol.MinUnknownVersionPacketSize {
+		if p.Size() < protocol.ByteCount(protocol.MinUnknownVersionPacketSize) {
 			s.logger.Debugf("Dropping a packet with an unknown version that is too small (%d bytes)", p.Size())
 			if s.config.Tracer != nil {
 				s.config.Tracer.DroppedPacket(p.remoteAddr, logging.PacketTypeNotDetermined, p.Size(), logging.PacketDropUnexpectedPacket)

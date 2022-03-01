@@ -1,4 +1,10 @@
-# A QUIC implementation in pure Go
+# A QUIC implementation in pure Go + non-standard max packet size configuration
+
+to set max packet size:
+```go
+// quic.Set_nonstandard_max_packet_size(max_packet_size uint64)
+quic.Set_nonstandard_max_packet_size(400) // maximum packet size in bytes
+```
 
 <img src="docs/quic.png" width=303 height=124>
 

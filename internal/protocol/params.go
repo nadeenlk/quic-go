@@ -6,10 +6,10 @@ import "time"
 const DesiredReceiveBufferSize = (1 << 20) * 2 // 2 MB
 
 // InitialPacketSizeIPv4 is the maximum packet size that we use for sending IPv4 packets.
-const InitialPacketSizeIPv4 = 1252
+var InitialPacketSizeIPv4 uint64 = 1252
 
 // InitialPacketSizeIPv6 is the maximum packet size that we use for sending IPv6 packets.
-const InitialPacketSizeIPv6 = 1232
+var InitialPacketSizeIPv6 uint64 = 1232
 
 // MaxCongestionWindowPackets is the maximum congestion window in packet.
 const MaxCongestionWindowPackets = 10000

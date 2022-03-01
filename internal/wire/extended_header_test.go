@@ -34,7 +34,7 @@ var _ = Describe("Header", func() {
 						DestConnectionID: protocol.ConnectionID{0xde, 0xad, 0xbe, 0xef, 0xca, 0xfe},
 						SrcConnectionID:  protocol.ConnectionID{0xde, 0xca, 0xfb, 0xad, 0x0, 0x0, 0x13, 0x37},
 						Version:          0x1020304,
-						Length:           protocol.InitialPacketSizeIPv4,
+						Length:           protocol.ByteCount(protocol.InitialPacketSizeIPv4),
 					},
 					PacketNumber:    0xdecaf,
 					PacketNumberLen: protocol.PacketNumberLen3,

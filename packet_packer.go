@@ -117,9 +117,9 @@ func getMaxPacketSize(addr net.Addr) protocol.ByteCount {
 	// Use the minimum size of an Initial packet as the max packet size.
 	if udpAddr, ok := addr.(*net.UDPAddr); ok {
 		if utils.IsIPv4(udpAddr.IP) {
-			maxSize = protocol.InitialPacketSizeIPv4
+			maxSize = protocol.ByteCount(protocol.InitialPacketSizeIPv4)
 		} else {
-			maxSize = protocol.InitialPacketSizeIPv6
+			maxSize = protocol.ByteCount(protocol.InitialPacketSizeIPv6)
 		}
 	}
 	return maxSize
@@ -370,7 +370,7 @@ func (p *packetPacker) initialPaddingLen(frames []ackhandler.Frame, size protoco
 func (p *packetPacker) PackCoalescedPacket() (*coalescedPacket, error) {
 	maxPacketSize := p.maxPacketSize
 	if p.perspective == protocol.PerspectiveClient {
-		maxPacketSize = protocol.MinInitialPacketSize
+		maxPacketSize = protocol.ByteCount(protocol.MinInitialPacketSize)
 	}
 	var initialHdr, handshakeHdr, appDataHdr *wire.ExtendedHeader
 	var initialPayload, handshakePayload, appDataPayload *payload

@@ -92,7 +92,7 @@ var _ = Describe("Pacer", func() {
 	It("accumulates budget, if no packets are sent, for larger packet sizes", func() {
 		t := time.Now()
 		sendBurst(t)
-		const packetSize = initialMaxDatagramSize + 200
+		var packetSize = initialMaxDatagramSize + 200
 		p.SetMaxDatagramSize(packetSize)
 		t2 := p.TimeUntilSend()
 		Expect(t2).To(BeTemporally(">", t))
@@ -108,7 +108,7 @@ var _ = Describe("Pacer", func() {
 
 	It("never allows bursts larger than the maximum burst size, for larger packets", func() {
 		t := time.Now()
-		const packetSize = initialMaxDatagramSize + 200
+		var packetSize = initialMaxDatagramSize + 200
 		p.SetMaxDatagramSize(packetSize)
 		sendBurst(t)
 		Expect(p.Budget(t.Add(time.Hour))).To(BeEquivalentTo(maxBurstSizePackets * packetSize))
